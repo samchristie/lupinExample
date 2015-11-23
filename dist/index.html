@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>Riot Lupin Immutable Todo App</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <p>This application was built to demonstrate web application development using:
+  	<ul>
+  	  <li>Riot - an lightweight MVVM framework with custom tag support</li>
+  	  <li>Lupin - a lightweight flask-like toolkit for event and state management</li>
+  	  <li>Immutable - a library for tracking changes in application state</li>
+  	</ul>
+  </p>
+  <p>The application uses local browser storage to avoid incorporation of a proper database subsystem or REST back end. It is built in ES6 and translated using babel. It is packed into a single javaScript bundle with webpack.</p>
+  <p>To create a new task, enter the task text in the box. To mark a task complete, click on the task label.</p>
+  <todo-app></todo-app>
+  <script src="bundle.js"></script>
+</body>
+</html>

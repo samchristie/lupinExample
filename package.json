@@ -1,0 +1,36 @@
+{
+  "name": "riot-lupin-immutable-todo",
+  "author": "Samuel Christie",
+  "description": "Simple ES6 Todo technology demonstrator and starter app.",
+  "license": "MIT",
+  "version": "0.1.0",
+  "keywords": [
+    "es6",
+    "immutable",
+    "lupin",
+    "riot",
+    "todo",
+    "todomvc"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "TBD"
+  },
+  "dependencies": {
+    "immutable": "^3.7.5",
+    "lupin": "0.0.0"
+  },
+  "devDependencies": {
+    "babel": "^4.7.12",
+    "babel-loader": "^4.1.0",
+    "riot": "^2.0.13",
+    "webpack": "^1.7.3",
+    "webpack-dev-server": "^1.7.0"
+  },
+  "scripts": {
+    "build": "webpack --progress --colors",
+    "deploy-gh-pages": "./deploy-gh-pages.sh",
+    "push": "git push --tags origin master",
+    "start": "webpack-dev-server --progress --colors --content-base build"
+  }
+}
