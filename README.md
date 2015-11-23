@@ -17,11 +17,11 @@ and run:
 
 2. Clone the Github repo:
 
-        git clone TBD
+        git clone https://github.com/samchristie/lupinExample.git
 
 3. Install npm dependencies:
 
-        cd riot-lupin-immutable-todo
+        cd lupinExample
         npm install
 
 4. Build the app `build/bundle.js` bundle:
