@@ -11,8 +11,7 @@ module.exports = {
       {
         test: /\.js$/,
         include: /src/,
-        loader: 'babel-loader',
-        query: {modules: 'common'}
+        loader: 'babel-loader'
       },
       {
         test: /\.less$/,

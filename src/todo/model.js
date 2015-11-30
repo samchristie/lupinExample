@@ -1,13 +1,17 @@
 /* 
-	Define the objects which will be stored in the application state. These 
-	objects and collections should all be immutable.
+	This file defines the module specific  objects which will be stored in the
+	application state. These objects and collections should all be immutable.
+   
 */
 
 // Use immutable from facebook to manage state objects
 import Immutable from 'immutable';
 
+// define the module name
+export const ModuleName = "ToDo";
+
 // define the label for all application state from this module
-export const TODO_STATE = "todos";  
+export const TODO_STATE = "ToDos"; 
 
 // create the objects for the module
 export function todo(title, description) {

@@ -1,7 +1,9 @@
 import riot from 'riot';
 import Lupin from 'lupin';
-import * as events from './signals';
 import Immutable from 'immutable';
+
+// module specific imports
+import * as cmds from './module';
 import { todo, TODO_STATE } from './model';
 
 riot.tag('todo-app',
@@ -17,9 +19,8 @@ riot.tag('todo-app',
 
   function(opts) {
     // set up the todo list once the form has been mounted
-    this.on('mount', () => this.opts.core.signals.push( events.initTodos()));
+    this.on('mount', () => cmds.initTodos());
   }
-
 );
 
 
@@ -36,25 +37,15 @@ riot.tag('todo-form',
     this.add = (e) => {
       // handle the user click on the add button
       if (this.todoTitle.value) {
-        core.signals.push( // raise an event to update the model state
-          events.addTodo( // create the event
-            // this event needs a new todo instance
-            todo( this.todoTitle.value, this.todoDescription.value)
-          )
-        );
+        cmds.addTodo( this.todoTitle.value, this.todoDescription.value);
         // now clear the user's input
         this.todoTitle.value = '';
         this.todoDescription.value = '';
       }
     };
 
-    this.clear = (e) => {
-      // handle the user click on the clear button
-      // create the clear event and raise it
-      core.signals.push( events.clearTodos() );
-    };
+    this.clear = cmds.clearTodos;
   }
-
 );
 
 
@@ -68,7 +59,7 @@ riot.tag('todo-list',
 
   function(opts) {
     // initialise the shadow DOM viewmodel to empty.
-    if( !("todoMap" in this) ) this.todoMap = null;
+    this.todoMap = null;
 
     // subscribe to changes in the relevant state
     this.opts.core.state.observe( (state) => { 
@@ -97,13 +88,6 @@ riot.tag('todo-item',
 
   function(opts) {
     // handle clicks on tasks 
-    this.toggle = () => {
-      // raise the toggle event
-      this.opts.core.signals.push( 
-        // create the toggle event with the id of the clicked task
-        events.toggleTodo( this.todo.toObject().id) 
-      );
-    }
+    this.toggle = () => cmds.toggleTodo(opts.todo.id);
   }
-
 );

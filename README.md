@@ -24,7 +24,7 @@ and run:
         cd lupinExample
         npm install
 
-4. Build the app `build/bundle.js` bundle:
+4. Build the app `dist/bundle.js` bundle:
 
         webpack
 
