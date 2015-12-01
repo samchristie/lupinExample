@@ -1,3 +1,5 @@
+"use strict";
+
 import riot from 'riot';
 import Lupin from 'lupin';
 import Immutable from 'immutable';
@@ -61,22 +63,15 @@ riot.tag('todo-list',
     // initialise the shadow DOM viewmodel to empty.
     this.todoMap = null;
 
-    // subscribe to changes in the relevant state
-    this.opts.core.state.observe( (state) => { 
-      // on each change, update the viewmodel content
-      // get the todo module state if it exists
-      var tmp = state.get( TODO_STATE);
-
-      if( tmp !== undefined && // the todo state has been established
-          this.todoMap !== tmp) { // the state is not the same as last time
-        // attach the immutalbe map to the list
-        this.todoMap = tmp;
+    // debug log to see if we get what we want
+    this.opts.core.observe( TODO_STATE, (state) => {
+        this.todoMap = state;
         // tell riot to update the view
+        console.log( "todo-list observer: ", state)
         this.update();
       }
     })
   }
-
 );
 
 

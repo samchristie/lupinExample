@@ -19,10 +19,10 @@ import Immutable from 'immutable';
 let core = Lupin( Immutable.Map());
 
 //generate easy console handles for debug of each event
-core.signals.observe(console.log.bind(console));
+core.signals.observe(( signal) =>  console.log( "main signal observer:", signal._type, signal) );
 
 //generate easy console handles for debug of the state on every state change
-core.state.observe(console.log.bind(console));
+core.state.observe(( state) =>  console.log( "main state observer:", state) );
 
 // load the modules of the application
 //This todo application is a bit more complex than necessary so you 
