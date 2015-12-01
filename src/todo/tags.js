@@ -6,7 +6,8 @@ import Immutable from 'immutable';
 
 // module specific imports
 import * as cmds from './module';
-import { todo, TODO_STATE } from './model';
+import { todo, TODO_STATE, ModuleName } from './model';
+
 
 riot.tag('todo-app',
 
@@ -21,7 +22,9 @@ riot.tag('todo-app',
 
   function(opts) {
     // set up the todo list once the form has been mounted
-    this.on('mount', () => cmds.initTodos());
+    this.on('mount', () => cmds.initTodos(
+      {type: "bootstrap", module: ModuleName}  // pass a source object for the bootstrap of this module
+    ));
   }
 );
 
@@ -36,17 +39,30 @@ riot.tag('todo-form',
   function(opts) {
     let core = this.opts.core;
 
+
     this.add = (e) => {
       // handle the user click on the add button
       if (this.todoTitle.value) {
-        cmds.addTodo( this.todoTitle.value, this.todoDescription.value);
+        var eventSource = {
+          type: "user",
+          module: ModuleName,
+          label: "add button"
+        }
+        cmds.addTodo( this.todoTitle.value, this.todoDescription.value, eventSource);
         // now clear the user's input
         this.todoTitle.value = '';
         this.todoDescription.value = '';
       }
     };
 
-    this.clear = cmds.clearTodos;
+    this.clear = () => { 
+      var eventSource = {
+        type: "user",
+        module: ModuleName,
+        label: "clear button"
+      }
+      cmds.clearTodos( eventSource) 
+    }
   }
 );
 
@@ -65,11 +81,10 @@ riot.tag('todo-list',
 
     // debug log to see if we get what we want
     this.opts.core.observe( TODO_STATE, (state) => {
-        this.todoMap = state;
-        // tell riot to update the view
-        console.log( "todo-list observer: ", state)
-        this.update();
-      }
+      this.todoMap = state;
+      // tell riot to update the view
+      console.log( "todo-list observer: ", state)
+      this.update();
     })
   }
 );
@@ -83,6 +98,12 @@ riot.tag('todo-item',
 
   function(opts) {
     // handle clicks on tasks 
-    this.toggle = () => cmds.toggleTodo(opts.todo.id);
+    var eventSource = {
+      type: "user",
+      module: ModuleName,
+      label: "todo-item"
+    }
+
+    this.toggle = () => cmds.toggleTodo( opts.todo.id, eventSource);
   }
 );
