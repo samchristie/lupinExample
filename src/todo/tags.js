@@ -23,7 +23,11 @@ riot.tag('todo-app',
   function(opts) {
     // set up the todo list once the form has been mounted
     this.on('mount', () => cmds.initTodos(
-      {type: "bootstrap", module: ModuleName}  // pass a source object for the bootstrap of this module
+      { type: "bootstrap", 
+        module: ModuleName,
+        file: "todo/tags.js",
+        line: 29
+      }  // pass a source object for the bootstrap of this module
     ));
   }
 );
@@ -46,9 +50,11 @@ riot.tag('todo-form',
         var eventSource = {
           type: "user",
           module: ModuleName,
-          label: "add button"
+          label: "add button",
+          file: "todo/tags.js",
+          line: 55
         }
-        cmds.addTodo( this.todoTitle.value, this.todoDescription.value, eventSource);
+        cmds.addTodo(  { title: this.todoTitle.value, description: this.todoDescription.value }, eventSource);
         // now clear the user's input
         this.todoTitle.value = '';
         this.todoDescription.value = '';
@@ -59,7 +65,9 @@ riot.tag('todo-form',
       var eventSource = {
         type: "user",
         module: ModuleName,
-        label: "clear button"
+        label: "clear button",
+        file: "todo/tags.js",
+        line: 71
       }
       cmds.clearTodos( eventSource) 
     }
@@ -83,7 +91,6 @@ riot.tag('todo-list',
     this.opts.core.observe( TODO_STATE, (state) => {
       this.todoMap = state;
       // tell riot to update the view
-      console.log( "todo-list observer: ", state)
       this.update();
     })
   }
@@ -101,9 +108,11 @@ riot.tag('todo-item',
     var eventSource = {
       type: "user",
       module: ModuleName,
-      label: "todo-item"
+      label: "todo-item",
+      file: "todo/tags.js",
+      line: 117
     }
 
-    this.toggle = () => cmds.toggleTodo( opts.todo.id, eventSource);
+    this.toggle = () => cmds.toggleTodo( { key: opts.todo.id }, eventSource);
   }
 );

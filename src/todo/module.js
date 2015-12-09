@@ -18,9 +18,9 @@ export var addTodo, toggleTodo, clearTodos, initTodos;
 export function init( core) {
   // set up the command processors for the module
   // set up addTodo( todoTitle, todoDescription)
-  addTodo = core.command( [TODO_COMMANDS, "Add"], procs.addProcessor, "title", "description" );
+  addTodo = core.command( [TODO_COMMANDS, "Add"], procs.addProcessor );
   // set up toggleTodo( key=todo.id)
-  toggleTodo = core.command( [TODO_COMMANDS, "Toggle"], procs.toggleProcessor, "key"); 
+  toggleTodo = core.command( [TODO_COMMANDS, "Toggle"], procs.toggleProcessor); 
   clearTodos = core.command( [TODO_COMMANDS, "Clear"], procs.clearProcessor ); // clearTodos() takes no parameters
   initTodos = core.command( [TODO_COMMANDS, "Init"], procs.initProcessor); // initTodos() takes no parameters
 

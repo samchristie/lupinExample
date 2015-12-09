@@ -19,7 +19,12 @@ import Immutable from 'immutable';
 let core = Lupin( Immutable.Map());
 
 //generate easy console handles for debug of each event
-core.signals.observe(( signal) =>  console.log( "main signal observer:", signal._type, signal) );
+core.signals.observe(( signal) =>  console.log( "main signal observer:", signal._ctrl.type, signal) );
+core.logStream.logs.observe(( signal) =>  console.log( 
+	signal._ctrl.type[2], 
+	JSON.stringify(signal._ctrl.source), 
+	JSON.stringify(signal.parameters)
+) );
 
 //generate easy console handles for debug of the state on every state change
 core.state.observe(( state) =>  console.log( "main state observer:", state) );
