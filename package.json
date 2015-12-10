@@ -32,7 +32,7 @@
     "babel-runtime": "*",
     "chai": "*",
     "mocha": "*",
-    "mocha-babel": "^3.0.0",
+    "mocha-babel": "*",
     "riot": "*",
     "webpack": "*"
   },

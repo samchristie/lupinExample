@@ -22,7 +22,7 @@ riot.tag('todo-app',
 
   function(opts) {
     // set up the todo list once the form has been mounted
-    this.on('mount', () => cmds.initTodos(
+    this.on('mount', () => cmds.initTodos( {},
       { type: "bootstrap", 
         module: ModuleName,
         file: "todo/tags.js",
@@ -69,7 +69,7 @@ riot.tag('todo-form',
         file: "todo/tags.js",
         line: 71
       }
-      cmds.clearTodos( eventSource) 
+      cmds.clearTodos( {}, eventSource) 
     }
   }
 );
