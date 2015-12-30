@@ -4,25 +4,28 @@
 
 import Immutable from 'immutable';
 import Riot from 'riot';
+import { Lupin } from 'lupin'
 
 
-import TODO_STATE from './model';  // MVVM Model
+import { ModuleName, TODO_STATE } from './model';  // MVVM Model
 import * as procs from './processors'; 
 import './tags.js';  // MVVM View
 
-const TODO_COMMANDS = "ToDo";
 // define the functions for creating each command for the module
 export var addTodo, toggleTodo, clearTodos, initTodos;
 
 
 export function init( core) {
   // set up the command processors for the module
-  // set up addTodo( todoTitle, todoDescription)
-  addTodo = core.command( [TODO_COMMANDS, "Add"], procs.addProcessor );
+  core.module( ModuleName)  // optional unless you need to specify postprocessor or catcher
+
+  // these should be declared in approximate order of frequency for efficiency
   // set up toggleTodo( key=todo.id)
-  toggleTodo = core.command( [TODO_COMMANDS, "Toggle"], procs.toggleProcessor); 
-  clearTodos = core.command( [TODO_COMMANDS, "Clear"], procs.clearProcessor ); // clearTodos() takes no parameters
-  initTodos = core.command( [TODO_COMMANDS, "Init"], procs.initProcessor); // initTodos() takes no parameters
+  toggleTodo = core.command( [ ModuleName, "Toggle"], procs.toggleProcessor); 
+  // set up addTodo( todoTitle, todoDescription)
+  addTodo = core.command( [ ModuleName, "Add"], procs.addProcessor );
+  clearTodos = core.command( [ ModuleName, "Clear"], procs.clearProcessor ); // clearTodos() takes no parameters
+  initTodos = core.command( [ ModuleName, "Init"], procs.initProcessor); // initTodos() takes no parameters
 
   // enable riot for the todo module by mounting the top level tag
   Riot.mount('todo-app', {core});

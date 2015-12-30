@@ -7,27 +7,14 @@
 import Riot from 'riot';
 
 //lupin provides a simple event/state distribution subsystem
-import Lupin from 'lupin';
+import { lupin, logPuter } from 'lupin';
 
 //using immutable so that we can easily compare
 //versions of the objects so we can optimize UI updates 
 //and can support undo operations.
 import Immutable from 'immutable';  
 
-//Create the event dispatcher - state manager instance
-// this should be part of lupin
-let core = Lupin( Immutable.Map());
 
-//generate easy console handles for debug of each event
-core.signals.observe(( signal) =>  console.log( "main signal observer:", signal._ctrl.type, signal) );
-core.logStream.logs.observe(( signal) =>  console.log( 
-	signal._ctrl.type[2], 
-	JSON.stringify(signal._ctrl.source), 
-	JSON.stringify(signal.parameters)
-) );
-
-//generate easy console handles for debug of the state on every state change
-core.state.observe(( state) =>  console.log( "main state observer:", state) );
 
 // load the modules of the application
 //This todo application is a bit more complex than necessary so you 
@@ -35,5 +22,15 @@ core.state.observe(( state) =>  console.log( "main state observer:", state) );
 //This example is defined in modules - but there is only one module
 
 import * as todo from './todo/module';
+
+
+//Create the event dispatcher - state manager instance
+let core = lupin( )
+//generate easy console handles for debug of each event, use default logger
+core.logSubscribe( logPuter)
 todo.init( core);
+
+//generate easy console handles for debug of the state on every state change
+core.observe( [], ( state) =>  console.log( "main state observer:", state) );
+
 

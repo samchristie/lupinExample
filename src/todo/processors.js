@@ -15,20 +15,20 @@ export function addProcessor( state, signal) {
     // insert the new todo instance from the signal
     t  
   );
-  return [state];
+  return { state }
 }
 
 export function toggleProcessor( state, signal) {
   // find the right todo in state and flip its done status
   state = state.updateIn( [ TODO_STATE, signal.key, "done"], done => !done);
-  return [state];
+  return { state }
 }
 
 export function clearProcessor( state, signal) {
   // remove the todos that are flagged as done
   state = state.update( TODO_STATE, 
     todos => todos.filterNot( todo => todo.get('done')));
-  return [state];
+  return { state };
 }
 
 export function initProcessor( state, signal) {
@@ -37,5 +37,5 @@ export function initProcessor( state, signal) {
   // initialize the core store for this module's model
   // this should be part of "register" up in lupin
   state = state.set( TODO_STATE, Immutable.Map());
-  return [state];
+  return { state };
 }

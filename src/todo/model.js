@@ -11,7 +11,7 @@ import Immutable from 'immutable';
 export const ModuleName = "ToDo";
 
 // define the label for all application state from this module
-export const TODO_STATE = "ToDos"; 
+export const TODO_STATE = ModuleName; 
 
 // create the objects for the module
 export function todo(title, description) {
@@ -30,8 +30,8 @@ export function todo(title, description) {
 
   return Immutable.fromJS( {
     id: guid(),
-	title,
-	description,
-	done: false
+	  title,
+	  description,
+	  done: false
   })
 } 
